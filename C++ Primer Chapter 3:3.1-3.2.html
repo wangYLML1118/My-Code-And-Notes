@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>C++ Primer Chapter 3:3.1-3.2.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family:  "Meiryo", "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+</head>
+<body>
+<h1 id="c-primer-chapter3%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81%E5%90%91%E9%87%8F%E5%92%8C%E6%95%B0%E7%BB%8431-32">C++ Primer Chapter3:字符串、向量和数组3.1-3.2</h1>
+<h2 id="%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E7%9A%84using%E5%A3%B0%E6%98%8E">命名空间的using声明</h2>
+<ul>
+<li>
+<p>目前为止，我们遇到的库函数基本上都属于命名空间std，而程序也显示地将这一点标示了出来。使用作用域操作符的含义是：编译器应从左侧的所示的作用域中寻找右侧那个名字。</p>
+</li>
+<li>
+<p>通过更简单的途径也能使用到命名空间中的成员。就是使用<code>using声明(using declaration)</code>。</p>
+</li>
+<li>
+<p>using声明具有形式：<code>using namespace::name</code>；</p>
+<pre><code>  #include&lt;iostream&gt;
+  //using声明，当我们使用名字cin时，从命名空间std中获取它。
+  using std::cin;
+
+  int main()
+  {
+      int i;
+      cin&gt;&gt;i;//正确：cin和std::cin含义相同
+      cout&lt;&lt;i;错误：没有对应的using声明，必须使用完整的名字。
+      std::cout&lt;&lt;i;//正确显式地从std中使用cout
+  }
+</code></pre>
+</li>
+</ul>
+<h3 id="%E6%AF%8F%E4%B8%AA%E5%90%8D%E5%AD%97%E9%83%BD%E9%9C%80%E8%A6%81%E7%8B%AC%E7%AB%8B%E7%9A%84using%E5%A3%B0%E6%98%8E">每个名字都需要独立的using声明</h3>
+<ul>
+<li>
+<p>每个using声明引入命名空间中的一个成员。例如，可以把要用到的标准库中的名字都以using声明的形式表示出来，重写的程序如下：</p>
+<pre><code>  #include&lt;iostream&gt;
+  //通过下列using声明，我们可以使用标准库中的名字
+  using std::cin;using std::cout;using std::endl;
+  int main()
+  {
+      cout&lt;&lt;&quot;Enter Two Numbers&quot;&lt;&lt;endl;
+      int v1,v2;
+      cin&gt;&gt;v1&gt;&gt;v2;
+      cout&lt;&lt;&quot;The Sum Of&quot;&lt;&lt;v1&lt;&lt;&quot;and&quot;&lt;&lt;v2&lt;&lt;&quot;is&quot;&lt;&lt;v1+v2&lt;&lt;endl;
+      return 0;
+  }
+</code></pre>
+</li>
+</ul>
+<h3 id="%E5%A4%B4%E6%96%87%E4%BB%B6%E4%B8%8D%E5%BA%94%E5%8C%85%E5%90%ABusing%E5%A3%B0%E6%98%8E">头文件不应包含using声明</h3>
+<ul>
+<li>位于头文件的代码一般来说不应该使用using声明。这是因为头文件的内容会拷贝到所有引用它的文件中去，如果头文件中有某个using声明，那么每个包含了这个头文件的文件都具有这个声明。对于某些程序来说。可能产生名字冲突。</li>
+</ul>
+<h3 id="%E4%B8%80%E4%BA%9B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">一些注意事项</h3>
+<ul>
+<li>之后将假设用到的标准库中的名字都已将using声明过了，将直接在代码中使用cin或cout</li>
+</ul>
+<h2 id="%E6%A0%87%E5%87%86%E5%BA%93%E7%B1%BB%E5%9E%8Bstring">标准库类型string</h2>
+<ul>
+<li>
+<p>标准库类型string表示可变长的字符序列，使用string类型必须首先包含string头文件。string定义在命名空间std中。</p>
+<pre><code>  #include&lt;string&gt;
+  using std::string;
+</code></pre>
+</li>
+<li>
+<p>c++标准一方面对库类型所提供的类型进行了详细规定，另一方面也对库的实现者做出一些性能上的要求。因此，标准库类型对于一般应用场景来说有足够的效率。</p>
+</li>
+</ul>
+<h3 id="%E5%AE%9A%E4%B9%89%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96string%E5%AF%B9%E8%B1%A1">定义和初始化string对象</h3>
+<ul>
+<li>
+<p>如何初始化类的对象是由类决定的。一个类可以定义很多初始化对象的方式，只不过这些方式之间必须有所区别。或者是初始值的类型不同更或者是初始值的数量不同。</p>
+<pre><code>  string s1;//默认初始化。s1是个空字符串
+  string s2=s1;//s2是s1的副本
+  string s3=&quot;hiya&quot;;//s3是该字符穿字面值的副本
+  string s4(10,'c');//s4的内容是cccccccccc
+</code></pre>
+</li>
+</ul>
+<p><img src="初始化string对象的方式.png" alt="初始化string对象的方式"></p>
+<h3 id="%E7%9B%B4%E6%8E%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E6%8B%B7%E8%B4%9D%E5%88%9D%E5%A7%8B%E5%8C%96">直接初始化和拷贝初始化</h3>
+<ul>
+<li>
+<p>如果使用等号(=)初始化一个变量，实际上执行的是<code>拷贝初始化(copy initialization)</code>，编译器把等号右侧的初始值拷贝到新创建的对象中去，与之相反如果不使用等号，则执行的是<code>直接初始化(direct initialization)</code>。</p>
+</li>
+<li>
+<p>当初始值只有一个时，使用直接初始化或者拷贝初始化都行。如果像上面s4那样初始化要用到的值有多个，一般来说只能用直接初始化的方式：</p>
+<pre><code>  string s5=&quot;hiya&quot;;//拷贝初始化
+  string s6(&quot;hiya&quot;);//直接初始化
+  string s7=(10.'c');//直接初始化
+</code></pre>
+</li>
+<li>
+<p>对于用多个值进行初始化的情况，非要用拷贝初始化的方式来处理也不是不可以，不过需要显式地穿件一个（临时）对象用于拷贝。</p>
+<pre><code>  string s8=string(10.'c');//拷贝初始化，s8的内容是cccccccccc
+</code></pre>
+</li>
+<li>
+<p>这条语句本质上等价于下面两条语句：</p>
+<pre><code>  string temp(10,'c');
+  string s8=temp;//将temp拷给s8
+</code></pre>
+</li>
+<li>
+<p>尽管初始化s8的语句合法，但是可读性差，也没有任何优势。</p>
+</li>
+</ul>
+<h2 id="string%E5%AF%B9%E8%B1%A1%E4%B8%8A%E7%9A%84%E6%93%8D%E4%BD%9C">string对象上的操作</h2>
+<ul>
+<li>一个类除了要规定初始化其对象的方式外，还要定义对象上所能执行的操作。其中，类既能定义通过函数名调用的操作，也能定义&lt;&lt;、+等各种运算符在该类对象上的新含义。
+<img src="string的操作.png" alt="string的操作"></li>
+</ul>
+<h3 id="%E8%AF%BB%E5%86%99string%E5%AF%B9%E8%B1%A1">读写string对象</h3>
+<ul>
+<li>
+<p>使用标准库中的iostream来读写int、double等内置类型的值。同样，也可以使用IO操作符读写string对象。：</p>
+<pre><code>  int main()
+  {
+      string s;//空字符串
+      cin&gt;&gt;s;//将string对象读入s，遇到空白停止
+      cout&lt;&lt;s&lt;&lt;endl;//输出s
+      return 0;
+  }
+</code></pre>
+</li>
+<li>
+<p>在执行读取操作时，string对象会自动忽略开头的空白（即空白符、换行符、制表符等）并从第一个真正的字符开始读起。直到遇到下一个空白为止。如果输入&quot;Hello Word&quot;,则程序只能读到&quot;Hello&quot;.</p>
+</li>
+<li>
+<p>和内置类型的输入输出操作一样，string对象的此类操作也是返回运算符左侧的运算对象作为结果。因此，多个输出或者多个输入可以连续写在一起。</p>
+<pre><code>  string s1,s2;
+  cin&gt;&gt;s1&gt;&gt;s2;//把第一个输入读到s1中，第二个输入读到s2中
+  cout&lt;&lt;s1&lt;&lt;s2&lt;&lt;endl;//输出两个string对象
+</code></pre>
+</li>
+<li>
+<p>如果输入“Hello World!”,则输出为“HelloWorld！”。</p>
+</li>
+</ul>
+<h3 id="%E8%AF%BB%E5%8F%96%E6%9C%AA%E7%9F%A5%E6%95%B0%E9%87%8F%E7%9A%84string%E5%AF%B9%E8%B1%A1">读取未知数量的string对象</h3>
+<ul>
+<li>
+<p>编写一个程序用于读取string对象：</p>
+<pre><code>  int main()
+  {
+      string word;
+      while(cin&gt;&gt;word)
+      {
+          cout&lt;&lt;word&lt;&lt;endl;
+      }
+      return 0;
+  }
+</code></pre>
+</li>
+<li>
+<p>while中的条件用于在读取时检测流的情况，如果流有效，也就是说没遇到文件结束标志或者非法输入。</p>
+</li>
+</ul>
+<h3 id="%E4%BD%BF%E7%94%A8getline%E8%AF%BB%E5%8F%96%E4%B8%80%E6%95%B4%E8%A1%8C">使用getline读取一整行</h3>
+<ul>
+<li>
+<p>有时我们希望在最终得到的字符串中保留空白符，这是应该用<code>getline</code>函数来代替原来的&gt;&gt;运算符。getline函数的参数是一个输入流和string对象，函数从给定的输入流中读取内容，直到遇到换行符位置（换行符也会被读入），然后把独到的内容存入那个string对象（不存换行符），如果输入一开始是个换行符，那么所得的结果是空string。</p>
+</li>
+<li>
+<p>和输入运算符一样，getline也会返回他的流参数。因此既然输入运算符能作为判断的条件。我们能改写程序令它一次输出一整行。</p>
+<pre><code>  int mian()
+  {
+      string line;
+      //每次读入一整行，直至到达文件末尾
+      while(getline(cin,line))
+      {
+          cout&lt;&lt;line&lt;&lt;endl;
+          return 0;
+      }
+  }
+</code></pre>
+</li>
+<li>
+<p>因为line中不包含换行符，所以我们手动加上换行操作符。和往常一样，使用endl结束当前行并刷新显示缓冲区。</p>
+</li>
+<li>
+<p>出发getline返回的那个换行符实际上被丢弃掉了，得到的string对象中并不包含该换行符。</p>
+</li>
+</ul>
+<h3 id="string%E7%9A%84empty%E5%92%8Csize%E6%93%8D%E4%BD%9C%E3%80%82">string的empty和size操作。</h3>
+<ul>
+<li>
+<p><code>empty</code>函数根据string对象是否为空返回一个对应的布尔值。empty也是string的一个成员函数。调用该函数的方法很简单，只要用点操作符指明是那个对象执行了empty函数就可以了。</p>
+</li>
+<li>
+<p>通过该写之前的程序，可以做到只输出非空的行：</p>
+<pre><code>  //每次读入一整行，遇到空行直接跳过
+  while(getline(cin,line))
+  {
+      if(!line.empty())
+      {
+          cout&lt;&lt;line&lt;&lt;enld;
+      }
+  }
+</code></pre>
+</li>
+<li>
+<p>在上面的程序中if语句的条件部分使用了<code>逻辑非运算符(!)</code>,它返回与其运算对象相反的结果。此例中，如果str不为空，则返回真。</p>
+</li>
+<li>
+<p><code>size</code>函数返回string对象的长度（即string对象中字符的个数），可以使用size函数只输出长度超过80字符的行：</p>
+<pre><code>  string line;
+  //每次读入一整行，输出其中超过80个字符的行
+  while(getline(cin,line))
+  {
+      if(line.size()&gt;80)
+      {
+          cout&lt;&lt;line&lt;&lt;endl;
+      }
+  }
+</code></pre>
+</li>
+</ul>
+
+</body>
+</html>

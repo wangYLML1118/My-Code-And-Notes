@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>c++ primer No.2.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+	font-size: 14px;
+	padding: 0 12px;
+	line-height: 22px;
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	color: #4080D0;
+	text-decoration: none;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code,
+h6 code {
+	font-size: inherit;
+	line-height: auto;
+}
+
+a:hover {
+	color: #4080D0;
+	text-decoration: underline;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left: 5px solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 14px;
+	line-height: 19px;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+.mac code {
+	font-size: 12px;
+	line-height: 18px;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+/** Theming */
+
+.vscode-light,
+.vscode-light pre code {
+	color: rgb(30, 30, 30);
+}
+
+.vscode-dark,
+.vscode-dark pre code {
+	color: #DDD;
+}
+
+.vscode-high-contrast,
+.vscode-high-contrast pre code {
+	color: white;
+}
+
+.vscode-light code {
+	color: #A31515;
+}
+
+.vscode-dark code {
+	color: #D7BA7D;
+}
+
+.vscode-light pre:not(.hljs),
+.vscode-light code > div {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre:not(.hljs),
+.vscode-dark code > div {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre:not(.hljs),
+.vscode-high-contrast code > div {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+.vscode-light blockquote,
+.vscode-dark blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.vscode-high-contrast blockquote {
+	background: transparent;
+	border-color: #fff;
+}
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family:  "Meiryo", "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback";
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+</head>
+<body>
+<h1 id="c-primer-chapter-2%E5%8F%98%E9%87%8F%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B">C++ Primer Chapter 2:变量和基本类型</h1>
+<h2 id="%E5%9F%BA%E6%9C%AC%E5%86%85%E7%BD%AE%E7%B1%BB%E5%9E%8B">基本内置类型</h2>
+<ul>
+<li>C++定义了一套包括基本类型和空类型在内的基本数据类型。其中算术基本类型包括了字符、整形数、布尔值和浮点数。空类型不对应具体的值，仅用于一些特殊的场合。</li>
+</ul>
+<h3 id="%E7%AE%97%E6%9C%AF%E7%B1%BB%E5%9E%8B">算术类型</h3>
+<ul>
+<li>算数类型分为两类：整型(intergral type,包括字符型和布尔型在内)和浮点型。</li>
+<li>算数类型的尺寸在不同的机器上有区别。
+<img src="c++算术类型.PNG" alt="c++算数类型"></li>
+<li>表中列出了c++标准规定的尺寸的最小值，同时允许编译器赋予这些类型更大的尺寸，某一类型所占的比特数不同，所能表示的数据范围也不一样。</li>
+</ul>
+<h3 id="%E5%B8%A6%E7%AC%A6%E5%8F%B7%E7%B1%BB%E5%9E%8B%E5%92%8C%E6%97%A0%E7%AC%A6%E5%8F%B7%E7%B1%BB%E5%9E%8B">带符号类型和无符号类型</h3>
+<ul>
+<li>出去布尔型和扩展的字符型以外，其它整型可以分为<code>带符号(signed)</code>的和<code>无符号(unsigned)</code>的，带符号整型可以表示正数、负数和0。无符号整型则只能表示大于等于0的整数。</li>
+</ul>
+<h3 id="%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2">类型转换</h3>
+<ul>
+<li>类型所能表示的值的范围决定了转换的过程。
+<ul>
+<li>当我们把一个非布尔类型的算数值赋给布尔类型时，初始值位0则结果位false，否则结果位true。</li>
+<li>当我们把一个布尔值付给非布尔类型时，初始值位false则结果为0，初始值为1rue则结果为1.</li>
+<li>当我们把一个浮点数赋给整数类型时，进行了近似处理。结果值将只保留小数点之前的部分。</li>
+<li>当我们把整数类型赋给浮点类型时，小数部分记为0。如果该整数所占空间超过了附带那类型的容量，精度可能会有所损失。</li>
+<li>当我们赋给无符号类型一个超出他所能表示范围的值时，结果是初始值对无符号类型所表示数值总数取模后的余数。</li>
+<li>当我们赋给带符号类型一个超出他表示范围的值时，结果是未定义(undefined)的。</li>
+</ul>
+</li>
+</ul>
+<h3 id="%E5%88%87%E5%8B%BF%E6%B7%B7%E7%94%A8%E5%B8%A6%E7%AC%A6%E5%8F%B7%E7%B1%BB%E5%9E%8B%E5%92%8C%E6%97%A0%E7%AC%A6%E5%8F%B7%E7%B1%BB%E5%9E%8B">切勿混用带符号类型和无符号类型</h3>
+<ul>
+<li>如果表达式里既有带符号类型又有无符号类型，当带符号类型取值为负时会出现异常结果，这是因为<code>带符号数会自动转换成无符号数</code>。</li>
+</ul>
+<h2 id="%E5%AD%97%E9%9D%A2%E5%80%BC%E5%B8%B8%E9%87%8F">字面值常量</h2>
+<ul>
+<li>一个形如42的值被称作字面值常量(Literal)，这样的值一望而知。每个字面值常量都对应一种数据类型，字面值常量的形式和值决定了它的数据类型。</li>
+</ul>
+<h3 id="%E6%95%B4%E5%9E%8B%E5%92%8C%E6%B5%AE%E7%82%B9%E5%9E%8B%E5%AD%97%E9%9D%A2%E5%80%BC">整型和浮点型字面值</h3>
+<ul>
+<li>我们可以将整型字面值写作十进制、八进制和十六进制的形式。整型字面值具体的数据类型由它的值和符号决定。尽管整形字面值可以存储在无符号数据类型中，十进制字面值不会时负数。</li>
+<li>默认的。浮点型字面值时一个double。</li>
+</ul>
+<h3 id="%E5%AD%97%E7%AC%A6%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AD%97%E9%9D%A2%E5%80%BC">字符和字符串字面值</h3>
+<ul>
+<li>
+<p>有单引号括起来的一个字符称为char型字面值。双括号括起来的零个或多个字符则构成字符串型字面值。字符串字面值的类型实际上是由常量字符构成的数组(array)，编译器在每个字符串的结尾加上一个空字符('/0')，因此，字符串字面值的实际长度要比他的内容多1。</p>
+</li>
+<li>
+<p>如果两个字符串字面值位置紧邻且由空格、缩进和换行符分隔。则它们实际上是一个整体。当书写的字符串字面值较长，就可以采取分开书写的形式：</p>
+<pre><code>  //分多行书写的字符串字面值
+  std::cout&lt;&lt;&quot;a really,really long string literay&quot;
+             &quot;that span two lines&quot;&lt;&lt;std::endl;
+</code></pre>
+</li>
+</ul>
+<h3 id="%E8%BD%AC%E7%A7%BB%E5%BA%8F%E5%88%97">转移序列</h3>
+<ul>
+<li>有两类字符程序员不能直接使用：一类是不可打印的(nonprintable)字符,如退格和其它控制字符，因为他们没有可视的图符；另一类实在c++语言中有特殊含义的字符，在这些情况下需要用到转义序列(escape sequence)。转义序列均以反斜杠为开始。</li>
+</ul>
+<h3 id="%E6%8C%87%E5%AE%9A%E5%AD%97%E9%9D%A2%E5%80%BC%E7%9A%84%E7%B1%BB%E5%9E%8B">指定字面值的类型</h3>
+<ul>
+<li>通过添加前缀和后缀，可以改变整型、浮点型和字符型字面值的默认类型。</li>
+<li>对于一个整型字面值来说，我们能分别指定它是否带符号以及占用多少空间。</li>
+</ul>
+<h3 id="%E5%B8%83%E5%B0%94%E5%AD%97%E9%9D%A2%E5%80%BC%E5%92%8C%E6%8C%87%E9%92%88%E5%AD%97%E9%9D%A2%E5%80%BC">布尔字面值和指针字面值</h3>
+<ul>
+<li>true和false是布尔类型的字面值。</li>
+<li>nullptr是指针类型的字面值。</li>
+</ul>
+<h2 id="%E5%8F%98%E9%87%8F">变量</h2>
+<ul>
+<li>变量提供一个具名的、可供程序操作的存储空间。c++中每个变量都有其数据类型，数据类型决定了变量所占内存空间的大小和布局方式。、该变量能存储的值的范围，以及变量能参与的运算。对c++程序员来说，&quot;变量(vaiiable)&quot;和&quot;对象(object)&quot;一般可以互换使用。</li>
+</ul>
+<h3 id="%E5%8F%98%E9%87%8F%E5%AE%9A%E4%B9%89">变量定义</h3>
+<ul>
+<li>
+<p>变量定义的基本形式是：首先是类型说明符(type specifier)，随后紧跟由一个或多个变量名组成的列表，其中变量名以逗号分隔，最后以分号结束。列表中每个变量名的类型都由类型说明符指定，定义时还可以为一个或多个变量赋初值。</p>
+<pre><code>  何为对象？
+  c++程序员在很多场合都会使用对象(object)这个名词，通常情况下，对象是指一块能存储数据并具有某种类型的内存空间。
+</code></pre>
+</li>
+</ul>
+<h3 id="%E5%88%9D%E5%A7%8B%E5%80%BC">初始值</h3>
+<ul>
+<li>当对象在创建时获得了一个特定的值，我们说这个值被初始化(initialized)了。用于初始化变量的值可以是任意复杂的表达式。当一次定义了两个或多个变量时，对象的名字随着定义也就马上可以使用了，因此在同意条定义语句中，可以用定义的变量的值去初始化后定义的其他变量。</li>
+<li>在c++语言中，初始化和赋值是两个完全不同的操作。初始化不是赋值，初始化的含义是创建变量时赋予其一个初始值，而赋值的含义是把对象的当前值擦除，而已一个新值来代替。</li>
+</ul>
+<h3 id="%E5%88%97%E8%A1%A8%E5%88%9D%E5%A7%8B%E5%8C%96">列表初始化</h3>
+<ul>
+<li>c++语言定义了初始化的好几种形式，这也是初始化问题复杂性的一个体现。作为c++11新标准的一部分，用花括号来初始化变量得到了全面的应用，这种初始化的形式叫做<code>列表初始化(list initialization)</code>，无论是初始化对象或是为对象赋新值，都可以使用这种形式。</li>
+<li>当用于内置类型的变量时，如果我们使用列表初始化且初始值存在丢失风险，则编译器将报错。</li>
+</ul>
+<h3 id="%E9%BB%98%E8%AE%A4%E5%88%9D%E5%A7%8B%E5%8C%96">默认初始化</h3>
+<ul>
+<li>如果定义变量是没有指定初值，则变量被默认初始化(defalt initialized)，此时变量被赋予“默认值”，默认值是什么由变量类型决定，定义变量的位置也对此有影响。</li>
+<li>如果内置类型的变量未被显式初始化，他的值由定义的位置决定，定义于任何函数体制外的变量被初始化为0。一种例外情况是，定义在函数体内部的内置类型变量将<code>不被初始化(uninitialized)</code>。一个未被初始化的内置类型的值是未被定义的，如果试图拷贝或以其他形式访问此类值将引发错误。</li>
+<li>每个类各自决定其初始化对象的方式，而且是否允许不经初始化就定义对象也由类决定。如果类决定允许这种行为，他将决定对象的初始值到底是什么。绝大多数类都支持无需显式初始化而定义对象，这样的类提供了一个合适的初始值。</li>
+<li>定义域于函数体内的内置类型的对象如果没有初始化，则其值未定义。类的对象如果如果煤油显式地初始化，则其值由类决定。</li>
+</ul>
+<h2 id="%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E5%92%8C%E5%AE%9A%E4%B9%89%E7%9A%84%E5%85%B3%E7%B3%BB">变量声明和定义的关系</h2>
+<ul>
+<li><code>声明(declaration)</code>使得名字被程序所知。一个文件如果使用别处定义的名字则必须包含对那个名字的声明。而<code>定义(defination)</code>，负责创建与名字关联的实体。变量声明规定了变量的类型和名字，这一点与定义相同，但是除此之外，定义还申请内存空间，也可能为变量赋一个初始值。</li>
+<li>如果想声明一个变量而非定义它，就在变量名前添加extern关键字，而且不要显式地初始化变量。</li>
+<li>任何包含了显示初始化的声明即成为定义。给由extern关键字标记的变量赋值这一做法抵消了extern的作用，声明就变成了定义。</li>
+<li><code>变量只能被定义一次，但可以被多次声明0</code>。</li>
+</ul>
+<h2 id="%E6%A0%87%E8%AF%86%E7%AC%A6">标识符</h2>
+<ul>
+<li>c++的<code>标识符(identifier)</code>由字母、数字和下划线组成，其中必须以字母或下划线组成开头。标识符的长度没有限制，但是对大小写字母敏感。</li>
+</ul>
+<h3 id="%E5%8F%98%E9%87%8F%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83">变量命名规范</h3>
+<ul>
+<li>标识符要能体现实际含义</li>
+<li>变量名一般用小写字母，如index，不要用Index或INDEX。</li>
+<li>用户自定义的类名一般用大写字母开头，如Sales_item。</li>
+<li>如果标识符由多个单词组成，则单词间应有明显区分。</li>
+</ul>
+<h2 id="%E5%90%8D%E5%AD%97%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F">名字的作用域</h2>
+<ul>
+<li><code>作用域(scope)</code>是程序的一部分，在其中名字有其特定的含义。c++语言中大多数作用于都已花括号分隔。</li>
+<li>同一个名字在不同的作用域中可能指向不同的实体。名字的有效区域始于名字的声明语句，以声明语句所在的作用域末端为结束。</li>
+</ul>
+<h3 id="%E5%B5%8C%E5%A5%97%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F">嵌套的作用域</h3>
+<ul>
+<li>作用域能彼此包含，被包含(或者说被嵌套)的作用域被称为<code>内层作用域(inner scope)</code>，包含别的作用域的作用域称为<code>外层作用域(outer scope)</code>。</li>
+<li>作用域中一旦声明了某个名字，他所嵌套着的所有作用域中都能访问改名。同时，允许在内层作用域中重新定义外层作用域已有的名字。</li>
+</ul>
+
+</body>
+</html>
